@@ -1,13 +1,14 @@
-// Package fileUtils contains utility functions for working with files.
 package fileUtils
 
 import (
+	"crypto/md5"
+	"io"
 	"log"
 	"os"
 )
 
-func GetFileSize(pathToFile string) int64 {
-	file, err := os.Stat(pathToFile)
+func GetMD5(pathToFile string) []byte {
+	file, err := os.Open(pathToFile)
 
 	//if file can't be found create an err message and close program
 	if os.IsNotExist(err) {
@@ -17,7 +18,13 @@ func GetFileSize(pathToFile string) int64 {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer file.Close()
 
-	// get and return the size of the file
-	return file.Size()
+	h := md5.New()
+
+	if _, err := io.Copy(h, file); err != nil {
+		log.Fatal(err)
+	}
+
+	return h.Sum(nil)
 }
