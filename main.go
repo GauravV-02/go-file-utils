@@ -28,5 +28,5 @@ func main() {
 
 	fmt.Println(fileUtils.GetFileSize(wd))
 	fmt.Println(fileUtils.GetMD5(wd))
-
+	fmt.Printf("%x", fileUtils.GetSHA1(wd))
 }
