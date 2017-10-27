@@ -27,6 +27,7 @@ func main() {
 	wd = strings.Replace(buffer.String(), "\\", "/", -1)
 
 	fmt.Println(fileUtils.GetFileSize(wd))
+	fmt.Println(fileUtils.GetFileName(wd))
 	fmt.Println(fileUtils.GetMD5(wd))
 	fmt.Printf("%x", fileUtils.GetSHA1(wd))
 }
